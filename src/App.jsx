@@ -6,6 +6,7 @@ import Body from './layouts/Body/Body.jsx';
 import Header from './components/Header/Header.jsx';
 import JournalList from './components/JournalList/JournalList.jsx';
 import JournalAddButton from './components/JournalAddButton/JournalAddButton.jsx';
+import JournalForm from './components/JournalForm/JournalForm.jsx';
 
 function App() {
 	const data = [
@@ -20,6 +21,7 @@ function App() {
 			date: new Date()
 		}
 	];
+
 
 	return (
 		<div className='app'>
@@ -44,7 +46,7 @@ function App() {
 				</JournalList>
 			</LeftPanel>
 			<Body>
-                Body
+				<JournalForm/>
 			</Body>
 		</div>
 	);
