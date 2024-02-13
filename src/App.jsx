@@ -48,7 +48,7 @@ function App() {
 				<JournalList items={items}/>
 			</LeftPanel>
 			<Body>
-				<JournalForm onSabmit={addItem}/>
+				<JournalForm onSubmit={addItem}/>
 			</Body>
 		</div>
 	);
