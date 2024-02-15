@@ -5,9 +5,10 @@ import cn from 'classnames';
 import {formReducer, INITIAL_STATE} from './JournalForm.state.js';
 import Input from '../Input/Input.jsx';
 import {UserContext} from '../../context/user.context.jsx';
+import Trash from '../Trash/Trash.jsx';
 
 
-function JournalForm({onSubmit, data}) {
+function JournalForm({onSubmit, data, onDelete}) {
 	const [formState, dispatchForm] = useReducer(formReducer, INITIAL_STATE);
 	const {isValid, isFormReadyToSubmit, values} = formState;
 	const titleRef = useRef();
@@ -31,6 +32,10 @@ function JournalForm({onSubmit, data}) {
 	};
 
 	useEffect(() => {
+		if (!data) {
+			dispatchForm({type: 'CLEAR'});
+			dispatchForm({type: 'SET_VALUE', payload: {userId}});
+		}
 		dispatchForm({type: 'SET_VALUE', payload: {...data}});
 	}, [data]);
 
@@ -60,6 +65,7 @@ function JournalForm({onSubmit, data}) {
 		dispatchForm({type: 'SET_VALUE', payload: {userId}});
 	}, [userId]);
 
+
 	const onChange = (e) => {
 		dispatchForm({
 			type: 'SET_VALUE', payload: {
@@ -74,14 +80,23 @@ function JournalForm({onSubmit, data}) {
 		dispatchForm({type: 'SUBMIT'});
 	};
 
+	const deleteJournalItem = () => {
+		onDelete(data.id);
+		dispatchForm({type: 'CLEAR'});
+		dispatchForm({type: 'SET_VALUE', payload: {userId}});
+	};
+
 
 	return (
 		<form className={styles['journal-form']} onSubmit={addJournalItem}>
-			<div>
+			<div className={styles['trash']}>
 				<Input type='text' ref={titleRef} isValid={isValid.title} onChange={onChange}
 					value={values.title}
 					name='title'
 					appearence="title"/>
+				{data?.id && <button type="button" className={styles['trash-btn']} onClick={deleteJournalItem}>
+					<Trash/>
+				</button>}
 			</div>
 			<div className={styles['form-row']}>
 				<label htmlFor="date" className={styles['form-label']}>

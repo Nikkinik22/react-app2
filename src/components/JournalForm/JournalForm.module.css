@@ -35,3 +35,27 @@
     border: 1px solid RED;
     background: rgb(68, 6, 6);
 }
+
+.trash {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.trash-btn {
+    cursor: pointer;
+    border: none;
+    background: none;
+    padding: 0;
+}
+
+
+.trash-btn:hover svg g rect {
+    stroke: #ff0000;
+}
+
+
+.trash-btn:hover svg g path {
+    stroke: #ff0000;
+}
+
